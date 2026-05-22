@@ -1,0 +1,65 @@
+import { LineEdit, ComboBox, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component Assets-Block1 inherits Rectangle {
+    // width: 100%;
+    border-radius: 12px;
+    background: #ffffff;
+    VerticalBox {
+        width: 100%;
+        spacing: 20px;
+        
+        // Überschrift
+        Text { 
+            text: "BLOCK 1: ZINSEN & KURVE"; 
+            font-weight: 700; 
+            font-size: 14px; 
+            color: #4A90E2; 
+        }
+        
+        // Zeile 1
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "US 2Y Yield (%)"; }
+                LineEdit { placeholder-text: "z.B. 4.25"; }
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "US 10Y Yield (%)"; }
+                LineEdit { placeholder-text: "z.B. 4.50"; }
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "10Y-2Y Curve Spread (bp)"; }
+                LineEdit { placeholder-text: "z.B. 25"; }
+            }
+        }
+        
+        // Zeile 2
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "TIP Price / IEF Price (Ratio)"; }
+                LineEdit { placeholder-text: "0,5"; }
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "TLT vs SHY Performance"; }
+                ComboBox { 
+                    model: ["Signal", "TLT Rising, SHY Falling", "Flat", "TLT Falling, SHY Rising"];
+                    current-index: 0;
+                }
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: " "; }
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+import { LineEdit, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component Assets-Block6 inherits Rectangle {
+    // width: 100%;
+    border-radius: 12px;
+    background: #ffffff;
+    VerticalBox {
+        width: 100%;
+        spacing: 15px;
+
+        // Überschrift
+        Text { 
+            text: "BLOCK 6: MAKRO-HARDDATA (FRED / BLS, EXTERN EINTRAGEN)"; 
+            font-weight: 700; 
+            font-size: 14px; 
+            color: #9B59B6; 
+        }
+        
+        HorizontalBox {
+            width: 100%;
+            spacing: 8px;
+
+            VerticalBox { width: 33%; Text { text: "ISM Manufacturing"; } LineEdit { placeholder-text: "z.B. 52.5"; } }
+            VerticalBox { width: 33%; Text { text: "ISM New Orders"; } LineEdit { placeholder-text: "z.B. 51"; } }
+            VerticalBox { width: 33%; Text { text: "Arbeitslosenquote (%)"; } LineEdit { placeholder-text: "z.B. 4.2"; } }
+        }
+        
+        HorizontalBox {
+            width: 100%;
+            spacing: 8px;
+            VerticalBox { width: 33%; Text { text: "Initial Claims (k)"; } LineEdit { placeholder-text: "z.B. 215"; } }
+            VerticalBox { width: 33%; Text { text: "Sahm Rule (pp)"; } LineEdit { placeholder-text: "z.B. 0.15"; } }
+            VerticalBox { width: 33%; Text { text: "Earnings Revisions (% neg)"; } LineEdit { placeholder-text: "z.B. 35"; } }
+        }
+        VerticalBox { width: 100%; Text { text: "Operating Margin (S&P 500, %)"; } LineEdit { placeholder-text: "z.B. 12.5"; } }
+        VerticalBox { width: 100%; Text { text: "Capex/Sales Ratio (%)"; } LineEdit { placeholder-text: "z.B. 8.5"; } }
+        
+        // HorizontalBox {
+        //     width: 100%;
+        //     spacing: 16px;
+        //     VerticalBox { width: 33%; Text { text: " "; } }
+        // }
+    }
+}

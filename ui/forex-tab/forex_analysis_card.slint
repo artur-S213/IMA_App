@@ -1,0 +1,296 @@
+import { Button, Slider, SpinBox, ComboBox, VerticalBox, HorizontalBox, ScrollView } from "std-widgets.slint";
+import { EconomicEventData, ImpactofEvent, COTValue } from "forex_types.slint";
+
+
+export component ForexAnalysisCard inherits Rectangle {
+    in property <length> card-width: 400px;
+
+    in property <int> card-index;
+
+    in-out property <string> id-name: "USD";
+    in property <COTValue> cot: COTValue.Neutral;
+    in-out property <float> yield-curve: 0;
+    in-out property <int> strength-val: 1;
+    in-out property <[EconomicEventData]> events: []; // Liste der Events
+    in property <float> final-bias: -10.0;
+    in property <float> initial-bias: -10.0;
+
+
+    callback add-event-clicked();
+    callback deleteEvent(int);
+
+    callback strength-changed(int);
+    callback yield-curve-changed(float);
+    callback cot-changed(int);
+    callback economic-event-changed(EconomicEventData);
+
+    background: #ffffff;
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: #e0e0e0;
+    width: root.card-width;
+
+    VerticalLayout {
+        padding: 12px;
+        spacing: 15px;
+
+        // --- HEADER ---
+        HorizontalLayout {
+            Text {
+                text: root.id-name + "/USD";
+                color: #2c5d63;
+                font-size: 18px;
+                font-weight: 700;
+            }
+            Rectangle { } 
+            Text {
+                text: "WEEKLY FORECAST";
+                color: #999;
+                font-size: 12px;
+                vertical-alignment: center;
+            }
+        }
+
+        // --- ROW 1 (Yield Curve & COT) ---
+        // Yield Curve
+        HorizontalLayout {
+            spacing: 0.05 * root.card-width;
+            VerticalLayout {
+                width: 0.4 * root.card-width;
+                spacing: 5px;
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 3px;
+                    VerticalLayout {
+                        alignment: center;
+                        Image {
+                            width: 15px;
+                            height: 15px;
+                            source: @image-url("../app_icons/Bar_chart_3D.png");
+                        }
+                    }
+                    Text { 
+                        text: "Yield Curve (bp)"; 
+                        font-size: 13px; 
+                        color: #444; 
+                    }
+                }
+                SpinBox { 
+                    value: root.yield-curve ;
+                    edited(value) => {
+                        root.yield-curve-changed(value);
+                    } 
+                }
+            }
+            // COT Positioning
+            VerticalLayout {
+                spacing: 5px;
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 3px;
+                    VerticalLayout {
+                        alignment: center;
+                        Image {
+                            width: 15px;
+                            height: 15px;
+                            source: @image-url("../app_icons/Bank_3D.png");
+                        }
+                    }
+                    Text { 
+                        text: "COT Positioning"; 
+                        font-size: 13px; 
+                        color: #444; 
+                    }
+                }
+                ComboBox {
+                    width: 0.4 * root.card-width;
+                    model: ["Neutral", "Bullish", "Bearish"];
+                    current-index: root.cot == COTValue.Neutral ? 0 :
+                                    root.cot == COTValue.Bullish ? 1:
+                                    2;
+                    selected(value) => {
+                        root.cot-changed(value == "Neutral" ? 0 :
+                                         value == "Bullish" ? 1 :
+                                         2
+                        );
+                    }
+                }
+            }
+        }
+
+        // --- STRENGTH & INITIAL BIAS ---
+        HorizontalLayout {
+            spacing: 15px;
+            // Strength Slider
+            VerticalLayout {
+                width: 45%;
+                spacing: 10px;
+                Text { text: "Strength (1-10)"; font-size: 13px; color: #444; }
+                Slider {
+                    value: root.strength-val;
+                    minimum: 1;
+                    maximum: 10;
+                    changed(val) => { 
+                        root.strength-val = val;
+                        root.strength-changed(val);
+                    }
+                }
+                Text { text: Math.round(root.strength-val) + "/10"; color: #777; font-size: 12px; }
+            }
+            
+            // Initial Bias Box
+            Rectangle {
+                background: #f1f6f6;
+                border-radius: 8px;
+                VerticalLayout {
+                    padding: 10px;
+                    alignment: center;
+                    Text { text: "Initial Bias"; font-size: 11px; color: #888; }
+                    Text { text: "-10.0"; font-size: 22px; font-weight: 700; color: #2c5d63; }
+                    Text { text: "RANGE"; font-size: 10px; color: #aaa; }
+                }
+            }
+        }
+
+        Rectangle { height: 1px; background: #eee; } // Divider
+
+        // --- ECONOMIC EVENTS SECTION ---
+        VerticalLayout {
+            spacing: 10px;
+            HorizontalLayout {
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 3px;
+                    VerticalLayout {
+                        alignment: center;
+                        Image {
+                            width: 18px;
+                            height: 18px;
+                            source: @image-url("../app_icons/Calendar_3D.png");
+                            vertical-alignment: center;
+                        }
+                    }
+                    Text { 
+                        text: "Economic Events"; 
+                        font-size: 15px; 
+                        font-weight: 600; 
+                        vertical-alignment: center; 
+                    }
+                }
+                Rectangle { }
+                Button {
+                    text: "+ Add Event";
+                    primary: true;
+                    clicked => { root.add-event-clicked(); }
+                }
+            }
+
+            // Placeholder oder Liste
+            Rectangle {
+                border-width: 1px;
+                border-color: #e0e0e0;
+                border-radius: 8px;
+                height: 150px; // Height of Event Box 
+
+                VerticalLayout {
+                    padding: 10px;
+
+                    if (root.events.length == 0) : Text {
+                        // height: 10px;
+                        text: "No events yet. Click \"+ Add Event\" to start.";
+                        color: #999;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
+                    }
+    
+                    // Economic Events
+                    if (root.events.length > 0) : ScrollView {
+                        // height: 150px;
+                        horizontal-scrollbar-policy: always-off;
+                        vertical-scrollbar-policy: as-needed;
+
+                        VerticalLayout {
+                            // padding: 10px;
+                            spacing: 5px;
+    
+                            for event in root.events : Rectangle {
+                                background: #f9f9f9;
+                                height: 30px;
+                                border-radius: 4px;
+                                HorizontalLayout {
+                                    padding-left: 10px; padding-right: 10px;
+                                    Text { text: event.name; vertical-alignment: center; }
+                                    Rectangle { }
+                                    // if (event.impact == ImpactofEvent.High) :
+                                    Text { 
+                                        text: event.impact == ImpactofEvent.High ? "HIGH" : 
+                                              event.impact == ImpactofEvent.Medium ? "MEDIUM" :
+                                              "LOW"; 
+                                        color: #d32f2f; 
+                                        vertical-alignment: center; 
+                                        font-weight: 600; 
+                                    }
+                                }
+                            }
+                        }
+
+                    } 
+                    
+                    
+
+                }
+                
+            }
+        }
+
+        // --- FINAL BIAS (FRIDAY) ---
+        Rectangle {
+            background: #e4eeef;
+            border-radius: 8px;
+            // border-left-width: 5px;
+            // border-left-color: #2c5d63;
+            VerticalLayout {
+                padding: 12px;
+                spacing: 5px;
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 3px;
+                    VerticalLayout {
+                        alignment: center;
+                        Image {
+                            width: 15px;
+                            height: 15px;
+                            source: @image-url("../app_icons/Bar_chart_3D.png");
+                        }
+                    }
+                    Text { 
+                        text: "Final Bias"; 
+                        font-size: 12px; 
+                        color: #555; 
+                    }
+                }
+                HorizontalLayout {
+                    padding-left: 10px;
+                    spacing: 10px;
+                    alignment: start;
+                    // Text { text: "➡️"; font-size: 24px; }
+                    Text { 
+                        text: root.final-bias; 
+                        font-size: 28px; 
+                        font-weight: 700; 
+                        color: #444; 
+                    }
+                }
+                Text { text: "RANGE"; font-size: 11px; color: #888; }
+                
+                // Footer Info
+                HorizontalLayout {
+                    spacing: 15px;
+                    Text { text: "News: 0.00"; font-size: 11px; color: #555; }
+                    Text { text: "|  COT: 0"; font-size: 11px; color: #555; }
+                    Text { text: "|  YC: 0.00"; font-size: 11px; color: #555; }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,111 @@
+import { ForexAnalysisCard } from "forex_analysis_card.slint";
+import { DatePickerPopup } from "std-widgets.slint";
+import { ForexCardPresenter } from "forex-card-presenter.slint";
+
+
+// Header of Forex-Tab
+component Forex-Header inherits Rectangle{
+    // in property <length> header-width: 1580px;
+
+    // width: header-width;
+    // preferred-width: header-width;
+    height: 90px;
+    background: #ffffff;
+    border-radius: 22px;
+
+    VerticalLayout {
+        padding: 10px;
+        spacing: 5px;
+        HorizontalLayout {
+            alignment: start;
+            spacing: 5px;
+            Rectangle {}
+            VerticalLayout {
+                alignment: center;
+                Image {
+                    width: 27px;
+                    height: 27px;
+                    source: @image-url("../app_icons/Currency_exchange_3D.png");
+                }
+            }
+    
+            header-text := Text {
+                // x: 28px;
+                // y: 20px;
+                text: "Forex Majors (COT + Positioning)";
+                color: #000000;
+                font-family: "Inter";
+                font-size: 25px;
+                font-weight: 400;
+                horizontal-alignment: left;
+                vertical-alignment: center;
+            }
+        }
+    
+        HorizontalLayout {
+            Rectangle {width: 7px;}
+            header-info := Text {
+                // x: 28px;
+                // y: 55px;
+                text: "Wöchentliches Bias-Scoring | News: 45%, COT: 25%, Yield Curve: 20%, Strength: 10%";
+                color: #788184;
+                font-family: "Inter";
+                font-size: 15px;
+                font-weight: 400;
+                horizontal-alignment: left;
+            }
+        }
+    }
+
+
+}
+
+export component Forex-Tab inherits Rectangle{
+    VerticalLayout {
+        alignment: start;
+        spacing: 5px;
+        Forex-Header {}
+        Rectangle {height: 5px;}
+        HorizontalLayout {
+            spacing: 15px;
+            for card[i] in ForexCardPresenter.forexCards: 
+            // TableExample{} 
+            ForexAnalysisCard {
+                id-name: card.id;
+                yield-curve: card.yield-curve;
+                cot: card.cot;
+                strength-val: card.strength;
+                initial-bias: card.initial-bias;
+                final-bias: card.final-bias;
+                events: card.events;
+
+                add-event-clicked => {
+                    ForexCardPresenter.add-event-clicked(i);
+                }
+
+                deleteEvent(event-index) => {
+                    ForexCardPresenter.deleteEvent(i, event-index);
+                }
+
+                strength-changed(val) => {
+                    ForexCardPresenter.strength-changed(i, val);
+                }
+
+                yield-curve-changed(val) => {
+                    ForexCardPresenter.yield-curve-changed(i, val);
+                }
+
+                cot-changed(val) => {
+                    ForexCardPresenter.cot-changed(i, val);
+                }
+
+                economic-event-changed(event) => {
+                    ForexCardPresenter.economic-event-changed(i, event);
+                }
+
+                
+            }
+        }
+    }
+
+}

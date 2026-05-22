@@ -1,0 +1,102 @@
+import { ForexCardData, EconomicEventData, COTValue, ImpactofEvent } from "forex_types.slint";
+
+export global ForexCardPresenter {
+    in-out property <[ForexCardData]> forexCards: 
+    [
+        {
+            id: "USD", 
+            yield-curve: 0.0, 
+            cot: COTValue.Neutral, 
+            strength: 2,
+            events: [
+                {
+                    name: "Event1", 
+                    impact: ImpactofEvent.High, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                },
+                {
+                    name: "Event2", 
+                    impact: ImpactofEvent.Medium, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                },
+                                {
+                    name: "Event3", 
+                    impact: ImpactofEvent.Medium, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                },
+                                {
+                    name: "Event4", 
+                    impact: ImpactofEvent.High, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                },
+                                {
+                    name: "Event5", 
+                    impact: ImpactofEvent.Low, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                }
+            ],
+            initial-bias: -5.0,
+            final-bias: 1.2
+        },
+        {
+            id: "CHF", 
+            yield-curve: 2.0, 
+            cot: COTValue.Bullish, 
+            strength: 3,
+            events: [
+                {
+                    name: "Event1", 
+                    impact: ImpactofEvent.High, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                },
+                {
+                    name: "Event2", 
+                    impact: ImpactofEvent.Medium, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                },
+                                {
+                    name: "Event3", 
+                    impact: ImpactofEvent.Medium, 
+                    threshold: 0.5, 
+                    consensus: 0.5, 
+                    actual: 1.2
+                }
+            ],
+            initial-bias: 2.0,
+            final-bias: 4.5
+        },
+        {
+            id: "EUR", 
+            yield-curve: 0.0, 
+            cot: COTValue.Neutral, 
+            strength: 1,
+            events: [],
+            initial-bias: 1.0,
+            final-bias: 1.0
+        }
+        
+    ];
+    
+    // first parameter = index, second parameter = value
+    callback add-event-clicked(int);
+    callback deleteEvent(int, int);
+    
+    callback strength-changed(int, int);
+    callback yield-curve-changed(int, float);
+    callback cot-changed(int, int);
+    callback economic-event-changed(int, EconomicEventData);
+}

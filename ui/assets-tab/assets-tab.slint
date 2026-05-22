@@ -1,0 +1,77 @@
+import { VerticalBox, Button } from "std-widgets.slint";
+import { Assets-Block1 } from "assets-block1.slint";
+import { Assets-Block2 } from "assets-block2.slint";
+import { Assets-Block3 } from "assets-block3.slint";
+import { Assets-Block4 } from "assets-block4.slint";
+import { Assets-Block5 } from "assets-block5.slint";
+import { Assets-Block6 } from "assets-block6.slint";
+
+export component Assets-Tab inherits Rectangle{
+    VerticalLayout {
+        padding: 5px;
+        width: 100%;
+        spacing: 10px;
+
+        tab-head:= Rectangle {
+            // "Card"-Bereich
+            width: 100%;
+            border-radius: 12px;
+            background: #ffffff;
+            border-width: 1px;
+    
+            VerticalBox {
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-top: 16px;
+                padding-bottom: 16px;
+                spacing: 3px;
+    
+                HorizontalLayout {
+                    spacing: 3px;
+                    VerticalLayout {
+                        alignment: center;
+                        Image {
+                            width: 20px;
+                            height: 20px;
+                            source: @image-url("../app_icons/Bar_chart_3D.png");
+                        }
+                    }
+                    Text {
+                        text: "Weekly Asset Scan (TV Dashboard)";
+                        color: #2b2f3a;
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+
+                }
+    
+                Text {
+                    text: "Screenshot-by-Screenshot Workflow | Direkt aus TradingView eintragen | Phase-Score automatisch";
+                    color: #898a8f;
+                    font-size: 13px;
+                    wrap: word-wrap;
+                }
+            }
+        }
+    
+        Assets-Block1 {}
+        Assets-Block2 {}
+        Assets-Block3 {}
+        Assets-Block4 {}
+        Assets-Block5 {}
+        Assets-Block6 {}
+
+        HorizontalLayout {
+            padding-left: 5px;
+            padding-right: 5px;            
+            width: 100%;
+            Button {
+                text: "Save Assets and calculate Phase";
+                primary: true;
+                clicked => {
+                    // TODO: implement
+                }
+            }
+        }
+    }
+}

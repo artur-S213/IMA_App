@@ -1,0 +1,43 @@
+import { LineEdit, ComboBox, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component Assets-Block2 inherits Rectangle{
+    // width: 100%;
+    border-radius: 12px;
+    background: #ffffff;
+    VerticalBox {
+        width: 100%;
+        spacing: 20px;
+        
+        // Überschrift
+        Text { 
+            text: "BLOCK 2: CREDIT SPREADS (SCREENSHOT 2 & 3)"; 
+            font-weight: 700; 
+            font-size: 14px; 
+            color: #E24A4A; 
+        }
+        
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "HY-OAS (bp) — BAMLH0A0HYM2"; }
+                LineEdit { placeholder-text: "z.B. 320"; }
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "HYG/LQD Ratio"; }
+                LineEdit { placeholder-text: "z.B. 0.73"; }
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "HY/IG Spreads Trend"; }
+                ComboBox {
+                    model: ["Trend", "Spreads Enger werdend (Risk-On)", "Stabil", "Spreads Weiter werdend (Risk-Off)"];
+                    current-index: 0;
+                }
+            }
+        }
+    }
+}

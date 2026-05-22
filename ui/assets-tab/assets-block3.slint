@@ -1,0 +1,105 @@
+import { LineEdit, ComboBox, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component Assets-Block3 inherits Rectangle{
+    // width: 100%;
+    border-radius: 12px;
+    background: #ffffff;
+    VerticalBox {
+        width: 100%;
+        spacing: 20px;
+        
+        // Überschrift
+        Text { 
+            text: "BLOCK 3: EQUITIES & SEKTOREN (SCREENSHOT 2)"; 
+            font-weight: 700; 
+            font-size: 14px; 
+            color: #4A90E2; 
+        }
+        
+        // Zeile 1 (4 Spalten)
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            
+            VerticalBox { 
+                width: 25%; 
+                Text { text: "SPX Performance (% YTD / 12M)"; }
+                LineEdit { placeholder-text: "z.B. +15"; }
+            }
+            VerticalBox { 
+                width: 25%; 
+                Text { text: "NDX Performance"; }
+                LineEdit { placeholder-text: "z.B. +18"; }
+            }
+            VerticalBox { 
+                width: 25%; 
+                Text { text: "IWM Performance"; }
+                LineEdit { placeholder-text: "z.B. +5"; }
+            }
+            VerticalBox { 
+                width: 25%; 
+                Text { text: "Equities Breadth"; }
+                ComboBox {
+                    model: ["Signal", "Up (Cyclical)", "Flat", "Down"];
+                    current-index: 0;
+                }
+            }
+        }
+        
+        // Sektor-Rotation (2 Zeilen je 3 Spalten)
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "XLU/SPX (Utilities)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "XLP/SPX (Staples)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "XLV/SPX (Healthcare)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+        }
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "XLF/SPX (Financials)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "XLE/SPX (Energy)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+            VerticalBox { 
+                width: 33%; 
+                Text { text: "XLI/SPX (Industrials)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+        }
+        
+        // EM & REITs (2 Spalten)
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            VerticalBox { 
+                width: 50%; 
+                Text { text: "EEM vs SPX (Performance Ratio)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+            VerticalBox { 
+                width: 50%; 
+                Text { text: "VNQ/IYR vs SPX (REIT Ratio)"; } 
+                ComboBox { model: ["Signal", "Up", "Flat", "Down"]; current-index: 0; } 
+            }
+        }
+    }
+}

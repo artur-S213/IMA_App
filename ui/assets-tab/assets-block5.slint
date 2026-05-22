@@ -1,0 +1,27 @@
+import { LineEdit, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component Assets-Block5 inherits Rectangle {
+    // width: 100%;
+    border-radius: 12px;
+    background: #ffffff;
+    VerticalBox {
+        width: 100%;
+        spacing: 20px;
+        
+        // Überschrift
+        Text { 
+            text: "BLOCK 5: VOLATILITÄT (SCREENSHOT 3)"; 
+            font-weight: 700; 
+            font-size: 14px; 
+            color: #E2874A; 
+        }
+        
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            VerticalBox { width: 33%; Text { text: "VIX Level"; } LineEdit { placeholder-text: "6"; } }
+            VerticalBox { width: 33%; Text { text: "MOVE Index (Bond Vol)"; } LineEdit { placeholder-text: "z.B. 95"; } }
+            VerticalBox { width: 33%; Text { text: "VX1/VX2 Ratio (Term Structure)"; } LineEdit { placeholder-text: "z.B. 1.05"; } }
+        }
+    }
+}

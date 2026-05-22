@@ -1,0 +1,68 @@
+global ActiveTab {
+    in-out property <int> index: 0;
+}
+
+component TabItem inherits VerticalLayout {
+    in property <string> title;
+    in property <bool> is-active;
+    in property <length> font-size: 14px;
+    
+    callback clicked;
+
+    spacing: 0px;
+
+    TouchArea {
+        clicked => { root.clicked(); }
+        
+        HorizontalLayout {
+            spacing: 8px;
+            alignment: center;
+            padding-bottom: 4px;
+
+            Text { 
+                text: root.title; 
+                color: root.is-active ? #2c5d63 : #777;
+                // font-weight: root.is-active ? 700 : 500;
+                font-weight: 500;
+                font-size: root.font-size;
+            }
+        }
+    }
+
+    // the underscore
+    Rectangle {
+        height: 2px;
+        background: root.is-active ? #2c5d63 : transparent;
+        // animate background { duration: 150ms; }
+    }
+}
+
+// MAIN Component
+export component TabView inherits VerticalLayout {
+    in property <[string]> tab-names: [];
+    in property <length> content-height: self.height;
+
+    HorizontalLayout {
+        spacing: 50px; 
+        padding: 10px; 
+        alignment: center;
+
+        for name[i] in root.tab-names : TabItem {
+            title: name;
+            is-active: ActiveTab.index == i;
+            clicked => { ActiveTab.index = i; }
+        }
+    }
+    Rectangle {
+        vertical-stretch: 1;
+        height: root.content-height;
+        @children
+    }
+}
+
+
+export component Tab inherits Rectangle {
+    in property <int> tab-index;
+    visible: ActiveTab.index == root.tab-index; 
+    @children
+}

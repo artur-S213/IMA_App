@@ -1,0 +1,33 @@
+
+
+export component Header-Tile inherits Rectangle {
+    in property <length> tile-width: 1580px;
+    in property <length> tile-height: 140px;
+
+    width: tile-width;
+    height: tile-height;
+    background: #ffffff;
+    border-radius: 22px;
+
+    header-text := Text {
+        x: 28px;
+        y: 31px;
+        text: "Institutional Macro Analysis";
+        color: #000000;
+        font-family: "Inter";
+        font-size: 40px;
+        font-weight: 400;
+        horizontal-alignment: left;
+    }
+
+    header-info := Text {
+        x: 28px;
+        y: 87px;
+        text: "Week of 13. April 2026 (KW 16)";
+        color: #788184;
+        font-family: "Inter";
+        font-size: 20px;
+        font-weight: 400;
+        horizontal-alignment: left;
+    }
+}

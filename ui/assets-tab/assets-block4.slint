@@ -1,0 +1,35 @@
+import { LineEdit, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component Assets-Block4 inherits Rectangle {
+    // width: 100%;
+    border-radius: 12px;
+    background: #ffffff;
+    VerticalBox {
+        width: 100%;
+        spacing: 20px;
+        
+        // Überschrift
+        Text { 
+            text: "BLOCK 4: ROHSTOFFE & USD (SCREENSHOT 2 & 3)"; 
+            font-weight: 700; 
+            font-size: 14px; 
+            color: #4A90E2; 
+        }
+        
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            VerticalBox { width: 33%; Text { text: "Copper Level (USD/lb)"; } LineEdit { placeholder-text: "z.B. 4.15"; } }
+            VerticalBox { width: 33%; Text { text: "Gold Level (USD/oz)"; } LineEdit { placeholder-text: "z.B. 2100"; } }
+            VerticalBox { width: 33%; Text { text: "Copper/Gold Ratio"; } LineEdit { placeholder-text: "z.B. 2.05"; } }
+        }
+        
+        HorizontalBox {
+            width: 100%;
+            spacing: 16px;
+            VerticalBox { width: 33%; Text { text: "Oil WTI (USD/bbl)"; } LineEdit { placeholder-text: "z.B. 75"; } }
+            VerticalBox { width: 33%; Text { text: "CRB Commodity Index"; } LineEdit { placeholder-text: "z.B. 420"; } }
+            VerticalBox { width: 33%; Text { text: "DXY (US Dollar Index)"; } LineEdit { placeholder-text: "z.B. 105.5"; } }
+        }
+    }
+}

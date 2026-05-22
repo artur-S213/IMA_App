@@ -1,0 +1,21 @@
+export enum COTValue { Neutral, Bullish, Bearish }
+
+export enum ImpactofEvent { High, Medium, Low}
+
+export struct EconomicEventData {
+    name: string,
+    impact: ImpactofEvent,
+    threshold: float,
+    consensus: float,
+    actual: float
+}
+
+export struct ForexCardData {
+    id: string,
+    yield-curve: float,
+    cot: COTValue,
+    strength: int,
+    events: [EconomicEventData],
+    initial-bias: float,
+    final-bias: float
+}

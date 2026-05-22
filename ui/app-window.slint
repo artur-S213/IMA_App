@@ -1,0 +1,50 @@
+import { Button, VerticalBox, DatePickerPopup, CheckBox, CheckBox, AboutSlint, StandardButton } from "std-widgets.slint";
+import { Header-Tile } from "header-tile.slint";
+import { TabView, Tab } from "tabview.slint";
+import { Forex-Tab } from "forex-tab/forex-tab.slint";
+import { Assets-Tab } from "assets-tab/assets-tab.slint";
+import { Phase-Tab } from "phase-tab/phase-tab.slint";
+
+export component AppWindow inherits Window {
+    in-out property <int> counter: 42;
+    callback request-increase-value();
+    in property <length> app-width: 1600px;
+    in property <length> app-height: 900px;
+    // width: 1600px;
+    // height: 900px;
+    always-on-top: true;
+    background: #f5f5f5;
+
+    win-layout := VerticalBox {
+        width: root.app-width;
+        height: root.app-height;
+        alignment: start;
+        padding: 15px;
+
+        Header-Tile {
+            tile-width: win-layout.width - (win-layout.padding * 2);
+            tile-height: 140px;
+        }
+
+        TabView {
+            tab-names: ["Forex", "Assets", "Phase"];
+            content-height: 700px;
+            Tab {
+                tab-index: 0;
+                Forex-Tab {}
+            }
+
+            Tab {
+                tab-index: 1;
+                Assets-Tab {}
+            }
+
+            Tab {
+                tab-index: 2;
+                Phase-Tab {}
+            }
+
+        }
+
+    }
+}

@@ -1,0 +1,366 @@
+import { LineEdit, TextEdit, ScrollView, GridBox, SpinBox } from "std-widgets.slint";
+
+// ─────────────────────────────────────────────────────────────
+//  Reusable: outlined / ghost button (used for "berechnen")
+// ─────────────────────────────────────────────────────────────
+component OutlineButton inherits Rectangle {
+    in property <string> label: "";
+    in property <image>  icon;
+    in property <bool>   has-icon: false;
+
+    callback clicked;
+
+
+    background:    #f4f6f8;
+    border-width:  1px;
+    border-color:  #c8d3de;
+    border-radius: 6px;
+    height:        36px;
+
+    HorizontalLayout {
+        padding-left:  12px;
+        padding-right: 14px;
+        spacing:       3px;
+        alignment:     center;
+
+
+        if (root.has-icon) : 
+        VerticalLayout {
+            alignment: center;
+            Image {
+                source: root.icon;
+                width:  15px;
+                height: 15px;
+                // colorize: #3b5f80;
+            }
+        }
+        
+
+        Text {
+            text:               root.label;
+            font-family:        "Inter";
+            font-size:          13px;
+            font-weight:        500;
+            color:              #3b5f80;
+            vertical-alignment: center;
+        }
+    }
+
+    ta := TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+
+    // Hover tint
+    states [
+        hovered when ta.has-hover : {
+            background: #e8ecf0;
+        }
+    ]
+
+    animate background { duration: 120ms; }
+}
+
+// ────────────────────────────────────────────────────────────
+//  Reusable: solid primary button (used for "Save Phase")
+// ─────────────────────────────────────────────────────────────
+component PrimaryButton inherits Rectangle {
+    in property <string> label:      "";
+    in property <color>  bg:         #2d8080;
+    in property <color>  bg-hover:   #246868;
+    in property <color>  text-color: #ffffff;
+    in property <image> icon;
+    in property <bool> has-icon: false;
+
+    callback clicked;
+
+    background:    root.bg;
+    border-radius: 7px;
+    height:        38px;
+
+    HorizontalLayout {
+        padding-left:  16px;
+        padding-right: 16px;
+        alignment:     center;
+        spacing:       8px;
+
+        if (root.has-icon): 
+        VerticalLayout {
+            alignment: center;
+            Image {
+                source: root.icon;
+                width: 15px;
+                height: 15px;
+            }
+        }
+    
+        Text {
+            text:               root.label;
+            font-family:        "Inter";
+            font-size:          13px;
+            font-weight:        600;
+            color:              root.text-color;
+            vertical-alignment: center;
+        }
+    }
+
+    ta := TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+
+    states [
+        hovered when ta.has-hover : {
+            background: root.bg-hover;
+        }
+    ]
+
+    animate background { duration: 150ms; }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  Reusable: labelled text input field
+// ─────────────────────────────────────────────────────────────
+component LabeledInput inherits VerticalLayout {
+    in property <string> field-label: "";
+    in property <string> placeholder: "";
+    out property <string> value <=> input.text;
+
+    spacing: 6px;
+
+    Text {
+        text:        root.field-label;
+        font-family: "Inter";
+        font-size:   13px;
+        font-weight: 600;
+        color:       #1e293b;
+    }
+
+    Rectangle {
+        height:       40px;
+        background:   #ffffff;
+        border-width: 1px;
+        border-color: #dde3ea;
+        border-radius: 6px;
+
+        // input2 := SpinBox {
+        //     value: 16;
+        //     step-size: 0.1;
+        // }
+        input := LineEdit {
+            placeholder-text: root.placeholder;
+            font-family:      "Inter";
+            font-size:        13px;
+
+            width:  parent.width;
+            height: parent.height;
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  Card wrapper  
+// ─────────────────────────────────────────────────────────────
+component Card inherits Rectangle {
+    background:           #ffffff;
+    border-radius:        8px;
+    drop-shadow-blur:     6px;
+    drop-shadow-color:    #00000012;
+    drop-shadow-offset-y: 2px;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  Section header label (all-caps muted caption)
+// ─────────────────────────────────────────────────────────────
+component SectionLabel inherits Text {
+    font-family:  "Inter";
+    font-size:    10px;
+    font-weight:  700;
+    color:        #8496a9;
+    letter-spacing: 0.9px;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  Main component 
+// ─────────────────────────────────────────────────────────────
+export component Phase-Tab inherits Rectangle {
+    callback calculate-vix-slope(string, string);
+    callback save-phase(string);
+
+    // background: #f0f2f5;
+
+    ScrollView {
+        width:  parent.width;
+        height: parent.height;
+        horizontal-scrollbar-policy: always-off;
+
+        VerticalLayout {
+            width:   parent.width;
+            padding: 18px;
+            spacing: 12px;
+            alignment: start;
+
+            // ── 1. Header card ───────────────────────────────────
+            Card {
+                height: 56px;
+
+                HorizontalLayout {
+                    padding-left:  16px;
+                    padding-right: 16px;
+                    spacing:       10px;
+                    alignment:     start;
+
+                    // Small colored icon block
+                    Rectangle {
+                        width:         22px;
+                        height:        22px;
+                        y:             (parent.height - self.height) / 2;
+                        background:    #5b8dd9;
+                        border-radius: 5px;
+
+                        // Inner symbol (simplified grid icon)
+                        Rectangle {
+                            x: 4px; y: 4px;
+                            width: 14px; height: 14px;
+                            background: transparent;
+
+                            // Two horizontal bars
+                            Rectangle { x: 0;   y: 2px;  width: 14px; height: 2px; background: #ffffff; border-radius: 1px; }
+                            Rectangle { x: 0;   y: 7px;  width: 14px; height: 2px; background: #ffffff; border-radius: 1px; }
+                            Rectangle { x: 0;   y: 12px; width: 14px; height: 2px; background: #ffffff; border-radius: 1px; }
+                        }
+                    }
+
+                    Text {
+                        text:               "Phase Determination";
+                        font-family:        "Inter";
+                        font-size:          15px;
+                        font-weight:        600;
+                        color:              #1a2332;
+                        vertical-alignment: center;
+                    }
+                }
+            }
+
+            // ── 2. VIX-Slope Quadranten card ─────────────────────
+            Card {
+                VerticalLayout {
+                    padding:  20px;
+                    spacing:  16px;
+
+                    SectionLabel {
+                        text: "VIX-SLOPE QUADRANTEN (MECHANISCHES TOOL)";
+                    }
+
+                    // Side-by-side inputs
+                    HorizontalLayout {
+                        spacing: 10px;
+                        width: 100%;
+                        // alignment: start;
+
+                        vix-input := LabeledInput {
+                            width: parent.width / 2;
+                            horizontal-stretch: 1;
+                            field-label:  "VIX Level";
+                            placeholder:  "z.B. 16";
+                        }
+
+                        slope-input := LabeledInput {
+                            width: parent.width / 2;
+                            horizontal-stretch: 1;
+                            field-label:  "Yield Curve Slope (10Y-2Y in bp)";
+                            placeholder:  "z.B. +50";
+                        }
+                    }
+
+                    // Calculate button (left-aligned, auto width)
+                    HorizontalLayout {
+                        alignment: start;
+
+                        OutlineButton {
+                            label: "VIX-Slope Phase berechnen";
+                            // searchIcon := Image {
+                            //     height: 15px;
+                            //     width: 15px;
+                            //     source: @image-url("../app_icons/.icon-search.svg");
+                            // }
+                            has-icon: true; 
+                            icon: @image-url("../app_icons/icon-search.svg");
+                            clicked => {
+                                root.calculate-vix-slope(
+                                    vix-input.value,
+                                    slope-input.value
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                height: 0px;
+                visible: false;
+            }
+            // ── 3. Phase Analysis card ───────────────────────────
+            Card {
+                height: 50px;
+
+                HorizontalLayout {
+                    padding-left:  20px;
+                    padding-right: 20px;
+                    alignment:     start;
+
+                    SectionLabel {
+                        text: "PHASE ANALYSIS";
+                        vertical-alignment: center;
+                    }
+                }
+            }
+
+            // ── 4. Macro Notes & Trading Implications ────────────
+            Text {
+                text:        "Macro Notes & Trading Implications";
+                font-family: "Inter";
+                font-size:   14px;
+                font-weight: 600;
+                color:       #1e293b;
+            }
+
+            Rectangle {
+                height:        130px;
+                background:    #ffffff;
+                border-width:  1px;
+                border-color:  #dde3ea;
+                border-radius: 7px;
+                drop-shadow-blur:     4px;
+                drop-shadow-color:    #0000000d;
+                drop-shadow-offset-y: 1px;
+
+                notes-edit := TextEdit {
+                    x: 1px; y: 1px;
+                    width:       parent.width  - 2px;
+                    height:      parent.height - 2px;
+                    font-family: "Inter";
+                    font-size:   13px;
+                    // color:       #1e293b;
+                }
+            }
+
+            // ── 5. Save Phase button ─────────────────────────────
+            HorizontalLayout {
+                alignment: start;
+                width: 100%;
+
+                PrimaryButton {
+                    label: "Save Phase";
+                    has-icon: true;
+                    icon: @image-url("../app_icons/icon-floppy-disk.svg");
+                    width: parent.width;
+                    clicked => {
+                        root.save-phase(notes-edit.text);
+                    }
+                }
+            }
+        }
+    }
+}
