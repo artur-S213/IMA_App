@@ -3,6 +3,8 @@ export enum COTValue { Neutral, Bullish, Bearish }
 export enum ImpactofEvent { High, Medium, Low}
 
 export struct EconomicEventData {
+    id: string,
+    card-id: string,
     name: string,
     impact: ImpactofEvent,
     threshold: float,

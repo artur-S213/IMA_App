@@ -32,42 +32,44 @@ add_subdirectory(src)
 # slint_target_sources(IMA ui/app-window.slint)
 
 
-install(TARGETS IMA
-  BUNDLE DESTINATION .
-  RUNTIME DESTINATION bin
-)
+#install(TARGETS IMA
+#  BUNDLE DESTINATION .
+#  RUNTIME DESTINATION bin
+#)
 
 # Linux-spezifische Icons und Desktop-Starter
 # if(UNIX AND NOT APPLE)
 #     install(FILES icons/icon.png DESTINATION share/icons/hicolor/256x256/apps RENAME sdalcal.png)
 # endif()
 
-# --- 3. CPACK KONFIGURATION (Das erzeugt die Installer) ---
-set(CPACK_PACKAGE_NAME "IMA")
-set(CPACK_PACKAGE_VENDOR "Artur")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "This app gives users the possibility to calculate the analysis of global economic interrelationships.")
-set(CPACK_PACKAGE_VERSION "1.0.0")
+#######################################################################################################
 
-# Windows Installer Einstellungen (NSIS)
-if(WIN32)
-    # add_custom_command(TARGET Sdalcal POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Sdalcal> $<TARGET_FILE_DIR:Sdalcal> COMMAND_EXPAND_LISTS)    
-    set(CPACK_GENERATOR "NSIS")
-    set(CPACK_PACKAGE_INSTALL_DIRECTORY "Sdalcal")
-
-elseif(UNIX AND NOT APPLE)    
-    set(CPACK_GENERATOR "DEB;RPM")
-    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "arthur.scheling@gmail.com")
-    set(CPACK_DEBIAN_PACKAGE_SECTION "utils")
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libx11-6, libfontconfig1, libxkbcommon0")
-    
-    set(CPACK_RPM_PACKAGE_LICENSE "GPLv3") 
-    set(CPACK_RPM_PACKAGE_GROUP "Applications/Utils")
-
-elseif(APPLE)
-    set(CPACK_GENERATOR "DragNDrop")
-endif()
-
-include(CPack)
+## --- 3. CPACK KONFIGURATION (Das erzeugt die Installer) ---
+#set(CPACK_PACKAGE_NAME "IMA")
+#set(CPACK_PACKAGE_VENDOR "Artur")
+#set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "This app gives users the possibility to calculate the analysis of global economic interrelationships.")
+#set(CPACK_PACKAGE_VERSION "1.0.0")
+#
+## Windows Installer Einstellungen (NSIS)
+#if(WIN32)
+#    # add_custom_command(TARGET Sdalcal POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Sdalcal> $<TARGET_FILE_DIR:Sdalcal> COMMAND_EXPAND_LISTS)
+#    set(CPACK_GENERATOR "NSIS")
+#    set(CPACK_PACKAGE_INSTALL_DIRECTORY "Sdalcal")
+#
+#elseif(UNIX AND NOT APPLE)
+#    set(CPACK_GENERATOR "DEB;RPM")
+#    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "arthur.scheling@gmail.com")
+#    set(CPACK_DEBIAN_PACKAGE_SECTION "utils")
+#    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libx11-6, libfontconfig1, libxkbcommon0")
+#
+#    set(CPACK_RPM_PACKAGE_LICENSE "GPLv3")
+#    set(CPACK_RPM_PACKAGE_GROUP "Applications/Utils")
+#
+#elseif(APPLE)
+#    set(CPACK_GENERATOR "DragNDrop")
+#endif()
+#
+#include(CPack)
 
 
 # On Windows, copy the Slint DLL next to the application binary so that it's found.

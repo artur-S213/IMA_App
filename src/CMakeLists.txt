@@ -3,13 +3,16 @@
 # include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(IMA 
-    main.cpp
+        main.cpp
+        AppManager.h
+        AppManager.cpp
 )
 
 slint_target_sources(IMA ui/app-window.slint)
 
 target_link_libraries(IMA PRIVATE 
     Slint::Slint
+    common
     ForexTab
     AssetsTab
     PhaseTab
@@ -17,7 +20,7 @@ target_link_libraries(IMA PRIVATE
 
 target_include_directories(IMA PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
-
+add_subdirectory(common)
 add_subdirectory(ForexTab)
 add_subdirectory(AssetsTab)
 add_subdirectory(PhaseTab)
