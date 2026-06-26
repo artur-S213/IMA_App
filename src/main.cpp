@@ -1,4 +1,5 @@
 #include "app-window.h"
+class AppWindow;
 
 int main(int argc, char **argv)
 {

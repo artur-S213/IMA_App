@@ -3,10 +3,12 @@
 
 #include <slint.h>
 
+struct ForexCardData;
+
 class ForexCardDataModel : public slint::Model<ForexCardData> {
 
 };
 
 
 
-#endif //FOREXCARDDATAMODEL_H
+#endif FOREXCARDDATAMODEL_H

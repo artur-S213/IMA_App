@@ -6,7 +6,8 @@
 #include "app-window.h"
 #include "IMAModelView.h"
 #include "IMA_types.h"
-// class AppWindow;
+#include  "ForexCardDataModel.h"
+class AppWindow;
 
 
 class ForexModelView : public IMAModelView {

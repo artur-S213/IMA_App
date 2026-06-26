@@ -2,6 +2,7 @@
 #include "IMA_types.h"
 #include <slint.h>
 #include "app-window.h"
+class AppWindow;
 
 ForexModelView::ForexModelView(slint::ComponentHandle<AppWindow> ui) : m_ui(std::move(ui)) 
 {
@@ -14,4 +15,4 @@ ForexModelView::~ForexModelView() {
 
 ForexModelView::updateUI(const IMA_Record newValues){
 
-} 
+}

@@ -11,9 +11,23 @@ struct ForexValuesUpdate : IMA_Record {
     float final_bias;
 };
 
-struct ForexCardRecord : IMA_Record {};
+struct ForexCardRecord : IMA_Record {
+
+};
 
 struct EconomicEventRecord : IMA_Record {};
 
+enum COTValue {
+    NEUTRAL,
+    BULLISH,
+    BEARISH
+};
+
+
+enum ImpactOfEvent {
+    HIGH,
+    MEDIUM,
+    LOW
+};
 
 #endif

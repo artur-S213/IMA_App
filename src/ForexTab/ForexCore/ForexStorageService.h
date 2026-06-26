@@ -1,0 +1,9 @@
+#ifndef IMA_FOREXSTORAGESERVICE_H
+#define IMA_FOREXSTORAGESERVICE_H
+
+
+class ForexStorageService {
+};
+
+
+#endif //IMA_FOREXSTORAGESERVICE_H

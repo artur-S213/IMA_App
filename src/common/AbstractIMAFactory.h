@@ -3,6 +3,10 @@
 
 #include "IMAModelView.h"
 #include <memory>
+#include "dexode/EventBus.hpp"
+#include <slint.h>
+
+class AppWindow;
 
 class AbstractIMAFactory {
     public:
