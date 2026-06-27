@@ -20,7 +20,7 @@ private:
 
 public:
     ForexManager(std::shared_ptr<dexode::EventBus> bus, slint::ComponentHandle<AppWindow>& ui);
-    void init();
+    void setup();
 };
 
 
