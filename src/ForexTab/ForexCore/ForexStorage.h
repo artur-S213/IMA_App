@@ -20,7 +20,7 @@ class ForexStorage {
     ForexCardRecord createCard(std::string currency);
     ForexCardRecord updateCard(std::string id);
     void createEconomicEvent(std::string card_id);
-    void updateEconomicEvent();
+    void updateEconomicEvent(std::string card_id);
 };
 
 

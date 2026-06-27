@@ -1,5 +1,5 @@
-//
-// Created by artur on 18.06.26.
-//
-
 #include "ForexStorageService.h"
+
+ForexStorageService::ForexStorageService(ForexStorage &m_forex_storage)
+        : m_ForexStorage(m_forex_storage) {
+}

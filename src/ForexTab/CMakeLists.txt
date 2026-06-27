@@ -1,6 +1,8 @@
 add_library(ForexTab STATIC
         ForexFactory.h
         ForexFactory.cpp
+        ForexManager.h
+        ForexManager.cpp
 )
 
 target_link_libraries(ForexTab PRIVATE

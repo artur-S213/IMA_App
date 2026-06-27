@@ -6,7 +6,7 @@
 // --- Methods
 
 ForexCard::ForexCard(std::string id) {
-    this
+    this->id = id;
 }
 
 
