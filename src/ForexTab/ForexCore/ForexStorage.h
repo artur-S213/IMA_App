@@ -3,16 +3,16 @@
 
 #include <string>
 #include <vector>
-#include "EconomicEvent.h"
 #include "ForexCard.h"
 #include "IMA_types.h"
+#include <unordered_map>
 
 
 class ForexStorage {
 
     private:
-    std::vector<ForexCard> cards; //hier evtl- lieber hashmap oder so ...
-
+    // std::vector<ForexCard> cards; //hier evtl- lieber hashmap oder so ...
+    std::unordered_map<std::string, ForexCard> cards;
 
     public:
     // ForexStorage(std::vector<std::string> values);
