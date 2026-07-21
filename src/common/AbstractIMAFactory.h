@@ -10,7 +10,7 @@ class AppWindow;
 
 class AbstractIMAFactory {
     public:
-    virtual std::unique_ptr<IMAModelView> createModelView();
+    virtual std::unique_ptr<IMAModelView> createModelView(slint::ComponentHandle<AppWindow> ui);
 
 };
 

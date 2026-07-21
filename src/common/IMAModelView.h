@@ -10,7 +10,7 @@ class IMAModelView {
 
     public:
     virtual void updateUI(const IMA_Record newValues);
-    virtual void set_UI (slint::ComponentHandle<AppWindow>)
+    virtual void set_UI (slint::ComponentHandle<AppWindow> ui);
 };
 
 #endif

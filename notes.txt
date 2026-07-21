@@ -1,0 +1,22 @@
+Next steps:
+
+- Implement ForexCardRecord (struct)
+- Implement EconomicEventRecord (struct)
+- Implement ForexStorage.cpp
+
+- Think about which types of messages should exist and when they are send
+    - If Card Values changed:
+        - Send specific type of message to model
+        - Send update bias message to ui
+
+    - If Economic Event changes:
+        - Send specific type of message to model
+        - Send update bias message to ui
+        - If Economic Event Creation: to ui: Send specific record
+        - If Economic Event Deletion: to ui: send record which contains the id of event
+
+    In General:
+    - If card value changed: Send signal and recieve updated values
+    - If event changed: - "" -
+    - If event created: Send init values und id's to ui
+    - If event deleted: Send id value to ui, so the ui deletes it from the list

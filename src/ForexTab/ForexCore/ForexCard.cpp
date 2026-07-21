@@ -10,6 +10,21 @@ ForexCard::ForexCard(std::string id) {
 }
 
 
+// Calculate bias
+IMA_Record ForexCard::calculate_bias() {
+}
+
+// --- Economic Event Methods
+
+void ForexCard::add_EconomicEvent() {
+}
+
+void ForexCard::delete_EconomicEvent(std::string id) {
+}
+
+void ForexCard::update_EconomicEvent(std::string id) {
+}
+
 // --- Getter
 std::string ForexCard::get_id() const {
     return id;

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "IMA_types.h"
 #include "EconomicEvent.h"
@@ -14,7 +15,7 @@ private:
     float yield_curve;
     COTValue cot;
     int strength;
-    std::vector<EconomicEvent> events;
+    std::unordered_map<std::string, EconomicEvent> events;
     float initial_bias;
     float final_bias;
 
@@ -26,11 +27,11 @@ public:
 
     // --- EconomicEvent handling
 
-    void add_EconomicEvent();
+    EconomicEventRecord add_EconomicEvent();
 
     void delete_EconomicEvent(std::string id);
 
-    void update_EconomicEvent(std::string id);
+    EconomicEventRecord update_EconomicEvent(std::string id);
 
 
     // --- other

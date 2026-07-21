@@ -16,7 +16,7 @@ private:
     std::unique_ptr<ForexStorageService> m_service;
     std::shared_ptr<dexode::EventBus> m_bus;
     slint::ComponentHandle<AppWindow>& m_ui;
-
+    // Add Listener for initial values and operations
 
 public:
     ForexManager(std::shared_ptr<dexode::EventBus> bus, slint::ComponentHandle<AppWindow>& ui);

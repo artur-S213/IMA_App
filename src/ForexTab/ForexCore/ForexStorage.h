@@ -11,11 +11,10 @@
 class ForexStorage {
 
     private:
-    // std::vector<ForexCard> cards; //hier evtl- lieber hashmap oder so ...
     std::unordered_map<std::string, ForexCard> cards;
 
     public:
-    // ForexStorage(std::vector<std::string> values);
+    ForexStorage(std::vector<std::string> values);
     ForexStorage();
     ForexCardRecord createCard(std::string currency);
     ForexCardRecord updateCard(std::string id);

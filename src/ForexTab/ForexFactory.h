@@ -13,9 +13,9 @@ class ForexFactory : public AbstractIMAFactory {
 
 
     public:
-    std::unique_ptr<IMAModelView> createModelView() override;
+    std::unique_ptr<IMAModelView> createModelView(slint::ComponentHandle<AppWindow> ui) override;
 
-    static std::unique_ptr<ForexStorageService> createStorageService(std::shared_ptr<dexode::EventBus> bus);
+    static std::unique_ptr<ForexStorageService> createStorageService(std::unique_ptr<ForexStorage> forex_storage);
 
     static std::unique_ptr<ForexStorage> createStorage();
 
