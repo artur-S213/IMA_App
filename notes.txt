@@ -1,7 +1,7 @@
 Next steps:
 
-- Implement ForexCardRecord (struct)
-- Implement EconomicEventRecord (struct)
+- Implement ForexCardRecord (struct) _/
+- Implement EconomicEventRecord (struct) _/
 - Implement ForexStorage.cpp
 
 - Think about which types of messages should exist and when they are send

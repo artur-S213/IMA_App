@@ -1,5 +1,7 @@
 #include "EconomicEvent.h"
 
+EconomicEvent::EconomicEvent() : thread(0.0), consensus(0.0), actual(0.0), impact(MEDIUM), name("") {}
+
 // --- Getter
 
 std::string EconomicEvent::get_id() const {

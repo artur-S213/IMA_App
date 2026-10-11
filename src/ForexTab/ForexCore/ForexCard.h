@@ -31,7 +31,7 @@ public:
 
     void delete_EconomicEvent(std::string id);
 
-    EconomicEventRecord update_EconomicEvent(std::string id);
+    ForexValuesUpdate update_EconomicEvent(std::string id);
 
 
     // --- other

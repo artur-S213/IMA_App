@@ -5,7 +5,7 @@
 
 // --- Methods
 
-ForexCard::ForexCard(std::string id) {
+ForexCard::ForexCard(std::string id) : yield_curve(0.0), cot(NEUTRAL), strength(0), initial_bias(0.0), final_bias(0.0) {
     this->id = id;
 }
 
@@ -16,13 +16,13 @@ IMA_Record ForexCard::calculate_bias() {
 
 // --- Economic Event Methods
 
-void ForexCard::add_EconomicEvent() {
+EconomicEventRecord ForexCard::add_EconomicEvent() {
 }
 
 void ForexCard::delete_EconomicEvent(std::string id) {
 }
 
-void ForexCard::update_EconomicEvent(std::string id) {
+ForexValuesUpdate ForexCard::update_EconomicEvent(std::string id) {
 }
 
 // --- Getter
